@@ -1,0 +1,7 @@
+# notati.ai
+
+Notes for AI
+
+- norway/public-data
+  - [einnsyn](einnsyn.md)        Public records, journal entries, government correspondence via eInnsyn API.
+  - [stortinget](stortinget.md)  Parliamentary data: representatives, committees, votes, hearings.
