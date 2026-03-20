@@ -324,3 +324,155 @@ The full API specification is available at:
 - OpenAPI YAML: https://github.com/felleslosninger/einnsyn-api-spec/blob/main/openapi/einnsyn.openapi.yml
 - TypeScript SDK: https://github.com/felleslosninger/einnsyn-sdk-typescript (`npm install https://github.com/felleslosninger/einnsyn-sdk-typescript`)
 - Java SDK: https://github.com/felleslosninger/einnsyn-sdk-java
+
+---
+
+## Visualization with Digdir Designsystemet
+
+**When to use:** Only when the user explicitly asks for a visualization, widget, calendar, dashboard, or visual presentation of eInnsyn data. If the user just asks a question, respond with plain text. If they ask to "show", "visualize", "make a calendar", "lag ein fin visning" etc., use Digdir Designsystemet for styling.
+
+### Loading the design system
+
+In Visualizer widgets (inline HTML) or React artifacts, load the CSS from CDN. These two files are required:
+
+```html
+<!-- Theme (design tokens / CSS variables) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@digdir/designsystemet-css@1/dist/theme/designsystemet.css">
+
+<!-- Component styles -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@digdir/designsystemet-css@1/dist/src/index.css">
+
+<!-- Inter font (recommended) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui@4/inter.css">
+```
+
+Then set the font on your root element:
+
+```html
+<div style="font-family: 'Inter', sans-serif; font-feature-settings: 'cv05' 1;">
+  <!-- content here -->
+</div>
+```
+
+### Core CSS classes (pure HTML, no React needed)
+
+Designsystemet uses CSS class names prefixed with `ds-` and `data-` attributes for configuration. Here are the most useful components:
+
+**Typography:**
+- `<h2 class="ds-heading" data-size="md">Title</h2>` — sizes: `2xs`, `xs`, `sm`, `md`, `lg`, `xl`, `2xl`
+- `<p class="ds-paragraph" data-size="md">Text</p>` — sizes: `sm`, `md`, `lg`
+- `<a class="ds-link" href="...">Link</a>`
+
+**Card:**
+```html
+<div class="ds-card" data-color="neutral">
+  <div class="ds-card__block">
+    <h3 class="ds-heading" data-size="xs">Title</h3>
+    <p class="ds-paragraph" data-size="sm">Description</p>
+  </div>
+</div>
+```
+
+**Button:**
+```html
+<button class="ds-button" data-variant="secondary" data-size="sm">Click me</button>
+```
+Variants: `primary`, `secondary`, `tertiary`. Sizes: `sm`, `md`, `lg`.
+
+**Details / Accordion:**
+```html
+<details class="ds-details">
+  <summary>Summary text</summary>
+  <div>Content when expanded</div>
+</details>
+```
+
+**Badge / Tag:**
+```html
+<span class="ds-tag" data-color="info" data-size="sm">Label</span>
+```
+
+**Alert:**
+```html
+<div class="ds-alert" data-color="info">
+  <p class="ds-paragraph">Alert message</p>
+</div>
+```
+
+**Table:**
+```html
+<table class="ds-table" data-size="sm">
+  <thead><tr><th>Heading</th></tr></thead>
+  <tbody><tr><td>Data</td></tr></tbody>
+</table>
+```
+
+**Divider:**
+```html
+<hr class="ds-divider">
+```
+
+### Data attributes
+
+- `data-color` — Sets component color. Values: `neutral`, `brand1`, `brand2`, `brand3`, `accent`, `info`, `success`, `warning`, `danger`
+- `data-size` — Sets component size. Values vary by component but typically: `sm`, `md`, `lg` (typography also supports `xs`, `2xs`, `xl`, `2xl`)
+- `data-variant` — Component variant. E.g. `tinted` on cards for lighter background, `primary`/`secondary`/`tertiary` on buttons
+- `data-color-scheme` — Color mode: `light`, `dark`, `auto`
+
+### CSS variables available from the theme
+
+The theme provides CSS custom properties you can use for custom styling:
+
+- `--ds-color-accent-*` — Accent color scale (base, text, surface, border variants)
+- `--ds-color-neutral-*` — Neutral color scale
+- `--ds-color-brand1-*` / `brand2-*` / `brand3-*` — Brand colors
+- `--ds-color-info-*` / `success-*` / `warning-*` / `danger-*` — Semantic colors
+- `--ds-font-family` — The configured font family
+- `--ds-spacing-*` — Spacing scale (0–13)
+- `--ds-border-radius-*` — Border radius tokens
+- `--ds-shadow-*` — Shadow tokens
+
+### Example: Meeting calendar widget
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@digdir/designsystemet-css@1/dist/theme/designsystemet.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@digdir/designsystemet-css@1/dist/src/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui@4/inter.css">
+
+<div style="font-family: 'Inter', sans-serif; font-feature-settings: 'cv05' 1;">
+  <h2 class="ds-heading" data-size="sm">Møte i dag</h2>
+  <p class="ds-paragraph" data-size="sm" style="margin-bottom: 1rem;">Frå eInnsyn — offentlege møte 20. mars 2026</p>
+
+  <div class="ds-card" data-color="neutral" style="margin-bottom: 0.75rem;">
+    <div class="ds-card__block">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+        <span class="ds-tag" data-color="info" data-size="sm">09:00</span>
+        <h3 class="ds-heading" data-size="2xs">Partssammensatt utvalg</h3>
+      </div>
+      <p class="ds-paragraph" data-size="sm">Buskerud fylkeskommune — Fylkeshuset Drammen</p>
+    </div>
+    <div class="ds-card__block">
+      <details class="ds-details">
+        <summary>7 saker på agendaen</summary>
+        <div>
+          <ul style="margin: 0.5rem 0; padding-left: 1.25rem;">
+            <li><p class="ds-paragraph" data-size="sm">Evaluering av Fylkesbiblioteket</p></li>
+            <li><p class="ds-paragraph" data-size="sm">Vurdering av tannlegevaktordningen</p></li>
+          </ul>
+          <a class="ds-link" href="https://einnsyn.no/..." target="_blank">Sjå på eInnsyn</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+```
+
+### Guidelines
+
+- Always use `data-color="neutral"` as default card color for meeting/document cards.
+- Use `data-color="info"` for time badges and metadata tags.
+- Use `ds-details` for expandable sections (agenda items, document lists) to keep the view compact.
+- Use `ds-tag` with `data-color` for entity type badges (Journalpost, Moetemappe, etc.).
+- Link back to eInnsyn with `ds-link` so users can access full documents.
+- Set `data-color-scheme="auto"` on the root wrapper to respect the user's dark/light mode preference.
+- Keep text in Norwegian (nynorsk or bokmål matching the user's preference).
