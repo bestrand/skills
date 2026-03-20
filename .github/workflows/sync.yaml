@@ -1,0 +1,123 @@
+# .github/workflows/sync.yaml
+#
+# Daily sync: Claude Code evaluates each note against its sources.
+# Creates PRs for notes that need updating.
+
+name: Sync
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      notes: ${{ steps.parse.outputs.notes }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: parse
+        run: |
+          # Extract top-level keys from sync.yaml (note names)
+          notes=$(grep -E '^\w+:$' sync.yaml | sed 's/://' | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "notes=$notes" >> "$GITHUB_OUTPUT"
+          echo "Notes to check: $notes"
+
+  check:
+    needs: plan
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        note: ${{ fromJson(needs.plan.outputs.notes) }}
+      fail-fast: false
+      max-parallel: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Evaluate ${{ matrix.note }}
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          claude -p "
+          You are maintaining a note in the notati.ai repo.
+
+          The note file is: ${{ matrix.note }}.md
+          The sync config is in: sync.yaml (look at the '${{ matrix.note }}' entry)
+
+          Your job:
+
+          1. Read the note file and its sync config.
+
+          2. For each source in the sync config, check for changes:
+
+             api sources:
+               - Fetch the URL
+               - Compare response schema/fields against what the note describes
+               - Flag if endpoints return errors, new fields, removed fields, or changed behavior
+
+             repo sources:
+               - Check latest commits since last_commit hash
+               - Read commit messages and changed files
+               - Flag if changes affect what the note describes
+
+             url sources:
+               - Fetch the page
+               - Hash the content, compare against last_hash in sync config
+               - If changed, evaluate what changed and if it affects the note
+
+          3. Also evaluate the note itself:
+               - Is anything unclear or could be more concise?
+               - Are there patterns or gotchas you can infer from the API responses?
+               - Could the note be improved based on what you learned?
+
+          4. If changes are needed:
+               - Update the note file with corrections/improvements
+               - Update sync.yaml: set last_sync to today, update last_hash and last_commit
+               - Create all changes in a single commit
+
+          5. If no changes needed:
+               - Only update last_sync date in sync.yaml
+               - Commit that alone
+
+          Be conservative. Only change the note if something is actually wrong or meaningfully improvable.
+          Keep notes terse. No unnecessary prose. These are notes, not documentation.
+          "
+
+      - name: Check for changes
+        id: diff
+        run: |
+          if [ -n "$(git diff --name-only)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create PR
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch="sync/${{ matrix.note }}-$(date +%Y%m%d)"
+          git checkout -b "$branch"
+          git add -A
+          git commit -m "sync: ${{ matrix.note }} $(date +%Y-%m-%d)"
+          git push origin "$branch"
+          gh pr create \
+            --title "sync: ${{ matrix.note }}" \
+            --body "Automated sync for **${{ matrix.note }}**. Review changes to the note and sync.yaml." \
+            --base main \
+            --head "$branch"
+
+  report:
+    needs: check
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - run: echo "Sync complete. Check PRs for any updates."
