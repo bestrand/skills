@@ -1,9 +1,9 @@
 ---
 name: einnsyn
-description: Query the Norwegian public records portal eInnsyn (einnsyn.no) via its REST API. Use this skill ALWAYS when the user asks about Norwegian public documents (offentleg journal), journal entries (journalposter), case files (saksmapper), meetings (møter/møtemapper/møtesaker), government transparency (offentleglova/innsynskrav), or any public sector correspondence registered in eInnsyn. Also trigger when the user mentions einnsyn.no, Noark5, postjournal, offentleg journal, innsynskrav, journalenhet, or names specific Norwegian government bodies (statsforvaltar, fylkeskommune, direktorat, departement) in the context of document search. Trigger for any request to find, search, list, or look up documents, meetings, decisions (vedtak), or voting records (voteringar) from Norwegian public sector organisations. This skill covers search, filtering, statistics, entity lookup, and document retrieval from api.einnsyn.no.
+description: Query the Norwegian public records portal eInnsyn (einnsyn.no) via its REST API. Use this ALWAYS when the user asks about Norwegian public documents (offentleg journal), journal entries (journalposter), case files (saksmapper), meetings (møter/møtemapper/møtesaker), government transparency (offentleglova/innsynskrav), or any public sector correspondence registered in eInnsyn. Also trigger when the user mentions einnsyn.no, Noark5, postjournal, offentleg journal, innsynskrav, journalenhet, or names specific Norwegian government bodies (statsforvaltar, fylkeskommune, direktorat, departement) in the context of document search. Trigger for any request to find, search, list, or look up documents, meetings, decisions (vedtak), or voting records (voteringar) from Norwegian public sector organisations. This covers search, filtering, statistics, entity lookup, and document retrieval from api.einnsyn.no.
 ---
 
-# eInnsyn API Skill
+# eInnsyn
 
 ## Overview
 

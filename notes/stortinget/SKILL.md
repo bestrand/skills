@@ -1,6 +1,6 @@
 ---
-name: Stortinget
-description: Query the Norwegian Parliament (Stortinget) open data API. Use this skill ALWAYS when the user asks about Stortinget, Norwegian parliament, Norwegian politics, representatives (stortingsrepresentanter), parliamentary questions (spørsmål), votes (voteringer), committees (komiteer), parties in parliament, today's agenda (dagsorden), who is speaking at Stortinget, live session status, Norwegian bills or proposals (representantforslag, lovforslag, stortingsmeldinger), or anything related to Norwegian parliamentary data. Also trigger when user mentions data.stortinget.no, or asks about specific Norwegian politicians who are members of Stortinget. This skill covers live session monitoring, historical data, representative lookups, voting records, and question time data.
+name: stortinget
+description: Query the Norwegian Parliament (Stortinget) open data API. Use this ALWAYS when the user asks about Stortinget, Norwegian parliament, Norwegian politics, representatives (stortingsrepresentanter), parliamentary questions (spørsmål), votes (voteringer), committees (komiteer), parties in parliament, today's agenda (dagsorden), who is speaking at Stortinget, live session status, Norwegian bills or proposals (representantforslag, lovforslag, stortingsmeldinger), or anything related to Norwegian parliamentary data. Also trigger when user mentions data.stortinget.no, or asks about specific Norwegian politicians who are members of Stortinget. This covers live session monitoring, historical data, representative lookups, voting records, and question time data.
 ---
 
 # Stortinget Open Data API

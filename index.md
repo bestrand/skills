@@ -1,3 +1,3 @@
 - norway/public-data
-  - [einnsyn](einnsyn.md)        Public records, journal entries, government correspondence via eInnsyn API.
-  - [stortinget](stortinget.md)  Parliamentary data: representatives, committees, votes, hearings.
+  - [einnsyn](notes/einnsyn/SKILL.md)        Public records, journal entries, government correspondence via eInnsyn API.
+  - [stortinget](notes/stortinget/SKILL.md)  Parliamentary data: representatives, committees, votes, hearings.
