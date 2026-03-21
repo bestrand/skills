@@ -1,13 +1,12 @@
-- norway/public-data
-  - [einnsyn](notes/einnsyn/SKILL.md)        Public records, journal entries, government correspondence via eInnsyn API.
-  - [stortinget](notes/stortinget/SKILL.md)  Parliamentary data: representatives, committees, votes, hearings.
-  - [brreg](notes/brreg/SKILL.md)              Norwegian company registry: org lookup, roles, board members via Brønnøysundregistrene API.
-  - [entur](notes/entur/SKILL.md)              Public transport: journey planning, departures, stops via Entur APIs.
-  - [geonorge](notes/geonorge/SKILL.md)        Place names, addresses, municipalities, coordinates via Kartverket APIs.
-  - [kartkatalog](notes/kartkatalog/SKILL.md)  Spatial data catalogue: find datasets, WMS/WFS services on Geonorge.
-  - [met-weather](notes/met-weather/SKILL.md)  Weather forecasts, nowcast, sunrise times via MET Norway API.
-  - [nvdb](notes/nvdb/SKILL.md)                Road database: speed limits, road objects, tunnels, bridges via NVDB API.
-  - [nve](notes/nve/SKILL.md)                  Energy and water: hydropower, wind, reservoirs, flood/landslide warnings via NVE API.
-  - [ssb](notes/ssb/SKILL.md)                  Statistics Norway: population, economy, demographics via StatBank and KLASS APIs.
-  - [trafikkdata](notes/trafikkdata/SKILL.md)  Traffic volumes, ÅDT, hourly counts via Trafikkdata GraphQL API.
-  - [vegbilder](notes/vegbilder/SKILL.md)      Road imagery: street-level photos of Norwegian roads via Vegbilder WFS/S3.
+- [einnsyn](notes/einnsyn/SKILL.md)        Public records, journal entries, government correspondence via eInnsyn API.
+- [stortinget](notes/stortinget/SKILL.md)  Parliamentary data: representatives, committees, votes, hearings.
+- [brreg](notes/brreg/SKILL.md)              Norwegian company registry: org lookup, roles, board members via Brønnøysundregistrene API.
+- [entur](notes/entur/SKILL.md)              Public transport: journey planning, departures, stops via Entur APIs.
+- [geonorge](notes/geonorge/SKILL.md)        Place names, addresses, municipalities, coordinates via Kartverket APIs.
+- [kartkatalog](notes/kartkatalog/SKILL.md)  Spatial data catalogue: find datasets, WMS/WFS services on Geonorge.
+- [met-weather](notes/met-weather/SKILL.md)  Weather forecasts, nowcast, sunrise times via MET Norway API.
+- [nvdb](notes/nvdb/SKILL.md)                Road database: speed limits, road objects, tunnels, bridges via NVDB API.
+- [nve](notes/nve/SKILL.md)                  Energy and water: hydropower, wind, reservoirs, flood/landslide warnings via NVE API.
+- [ssb](notes/ssb/SKILL.md)                  Statistics Norway: population, economy, demographics via StatBank and KLASS APIs.
+- [trafikkdata](notes/trafikkdata/SKILL.md)  Traffic volumes, ÅDT, hourly counts via Trafikkdata GraphQL API.
+- [vegbilder](notes/vegbilder/SKILL.md)      Road imagery: street-level photos of Norwegian roads via Vegbilder WFS/S3.
