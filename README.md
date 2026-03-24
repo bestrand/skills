@@ -5,5 +5,3 @@ Notes for AI in any format — skills, agents.md, llms.txt. Referenced via markd
 ## Usage
 
 Refer to [notati.ai](https://notati.ai) for context in chat, coding agents, skills, agents.md, llms.txt — anywhere AI needs context. Pick specific links, compose several, or let the AI explore the index itself.
-
-See [index.md](index.md)
